@@ -82,7 +82,7 @@ angular.module('jagruticontroller', ['myservices'])
     $scope.twitterlogin = function() {
         //        console.log(window.location);
         //        var abc = window.location.origin + window.location.pathname;
-        ref = window.open(socialloginurl + 'Twitter?returnurl=http://www.ting.in', '_blank', 'location=no');
+        var ref = cordova.InAppBrowser.open(socialloginurl + 'Twitter?returnurl=http://www.ting.in', '_blank', 'location=no');
         stopinterval = $interval(callAtIntervaltwitter, 2000);
         ref.addEventListener('exit', function(event) {
             $http.post(adminurl + "authenticate").success(authenticatesuccess);
@@ -92,7 +92,7 @@ angular.module('jagruticontroller', ['myservices'])
     $scope.facebooklogin = function() {
         //        console.log(window.location);
         //        var abc = window.location.origin + window.location.pathname;
-        ref = window.open(socialloginurl + 'Facebook?returnurl=http://www.ting.in', '_blank', 'location=no');
+        var ref = cordova.InAppBrowser.open(socialloginurl + 'Facebook?returnurl=http://www.ting.in', '_blank', 'location=no');
         stopinterval = $interval(callAtIntervaltwitter, 2000);
         ref.addEventListener('exit', function(event) {
             $http.post(adminurl + "authenticate").success(authenticatesuccess);
@@ -130,10 +130,10 @@ angular.module('jagruticontroller', ['myservices'])
             }
         }).success(forgotSuccess);
     }
-    
+
 
     //  FORGOT PASSWORD END
-    
+
     //  REDIRECT CHANGE PASSWORD STARTS
     var newPasswordSuccess = function (data, status) {
         if(data == '1'){
@@ -151,7 +151,7 @@ angular.module('jagruticontroller', ['myservices'])
                 hashcode: $stateParams.hashid
         }).success(newPasswordSuccess);
     }
-    
+
     //  REDIRECT CHANGE PASSWORD ENDS
 
 });
