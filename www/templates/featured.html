@@ -1,0 +1,191 @@
+<ion-view class="bghome">
+    <div class="bar bar-header dark-green">
+        <h1 class="title margin-auto"><img class="header-img" src="img/head-logo-r.png"></h1>
+    </div>
+    <!--
+    <div class="bar bar-header item-input-inset">
+                <div class="item-input-wrapper" placeholder="Search a user"><i class="icon ion-android-search"></i><input type="search" placeholder="Search a user"> ngIf: search.value.length > 0 </div>
+            </div>
+-->
+    <!--
+      <div class="search-movie">
+       <form ng-submit="">
+            <input type="text" placeholder="Search" class="search-bar">
+        </form>
+    </div>
+-->
+    <!--
+    <ion-nav-title>
+        <form ng-submit="" ng-show="showSearch">
+            <input type="text" placeholder="Search" class="search-bar">
+        </form>
+        <img class="header-img" src="img/head-logo.png">
+    </ion-nav-title>
+-->
+    <ion-nav-buttons side="right">
+        <button class="button button-icon search button-clear ion-android-search" ng-click="toggle();" ng-init="first=false"></button>
+
+        <!--        <input type="text" placeholder="Search..." ng-if="first">-->
+
+    </ion-nav-buttons>
+
+    <ion-content>
+
+        <div class="item-input-inset" style="padding-top:0">
+            <div class="item-input-wrapper" placeholder="Search a user" ng-submit="" ng-show="myVar"><i class="icon ion-android-search white"></i>
+                <input type="search" placeholder="Search..." ng-model="searchmovie.s" ng-keypress="getsearchres($event)">
+            </div>
+
+            <!--
+       <form ng-submit="" ng-show="myVar">
+            <input type="text" placeholder="Search" ng-model="searchmovie.s" ng-keypress="getsearchres($event)">
+        </form>
+-->
+        </div>
+        <!--        <div class="rale-semibold" style="text-align:center;padding:10px;color:white" ng-if="featuredcount!='1'">No featured movies</div>-->
+        <div class="pos moviebg" style="margin-bottom:30px;" ng-repeat="featured in intheatre.theatresthisweek | limitTo:1" ng-if="featured.isfeatured==1">
+
+            <a href="#/app/details/{{featured.id}}">
+                <img ng-src="{{featured.image}}" height="auto" width="100%" />
+
+                <div class="mtitle gradientbg pl10">
+                    <h6 class="margin-0 light rale-regular">FEATURED</h6>
+                    <h6 class="light rale-regular" style="margin-top:5px;">{{featured.name}}</h6>
+                </div>
+            </a>
+        </div>
+        <!--
+        <div class="tab-menu tac">
+            <div class="row">
+                <div class="col">
+                    <div class="darkbg light">IN THEATERS</div>
+                </div>
+                <div class="col">
+                    <div class="darkbg light">COMING SOON</div>
+                </div>
+            </div>
+        </div>
+-->
+        <div class="movie-list-hd tac">
+            <p>IN THEATERS THIS WEEK</p>
+        </div>
+        <ion-list class="menu-list">
+            <ion-item ng-repeat="movies in intheatre.theatresthisweek | orderBy:'- dateofrelease'" ng-if="movies.isintheator==1">
+                <a href="#/app/details/{{movies.id}}">
+                    <img class="new-release" src="img/new-release2.png" ng-if="movies.iscommingsoon==1">
+                    <img ng-src="{{movies.image}}" height="auto" width="100%" />
+                </a>
+
+                <img class="watch-movie watch-opacity1" src="img/watch.png" ng-repeat="userwatch in userdetails.watched" ng-if="movies.id==userwatch.id" ng-click="inwatch();">
+                <img class="watch-movie watch-opacity" src="img/watch.png" ng-repeat="userwatch in userdetails.watched" ng-if="movies.id!=userwatch.id" ng-click="setwatched(movies.id);">
+
+                <div class="bgwhite detail">
+
+                    {{movies.name}}
+
+                    <span class="f12 pull-right" ng-repeat="avgr in avgrate.allavgrating" ng-if="avgr.movie==movies.id">
+<!--                        <rating class="ptr-disable" ng-model="movies.rating" max="5"></rating>-->
+                    <span class="pos" ng-if="avgr.avg==0.5">
+                               <i class="icon-star half"></i><i class="icon-star zero"></i><i class="icon-star zero"></i><i class="icon-star zero"></i><i class="icon-star zero"></i>
+                    </span>
+                    <span class="pos" ng-if="avgr.avg==1">
+                            <i class="icon-star full"></i><i class="icon-star zero"></i><i class="icon-star zero"></i><i class="icon-star zero"></i><i class="icon-star zero"></i>
+                        </span>
+                    <span class="pos" ng-if="avgr.avg==1.5">
+                           <i class="icon-star full"></i><i class="icon-star half"></i><i class="icon-star zero"></i><i class="icon-star zero"></i><i class="icon-star zero"></i>
+                        </span>
+                    <span class="pos" ng-if="avgr.avg==2">
+                           <i class="icon-star full"></i><i class="icon-star full"></i><i class="icon-star zero"></i><i class="icon-star zero"></i><i class="icon-star zero"></i>
+                        </span>
+                    <span class="pos" ng-if="avgr.avg==2.5">
+                           <i class="icon-star full"></i><i class="icon-star full"></i><i class="icon-star half"></i><i class="icon-star zero"></i><i class="icon-star zero"></i>
+                        </span>
+                    <span class="pos" ng-if="avgr.avg==3">
+                            <i class="icon-star full"></i><i class="icon-star full"></i><i class="icon-star full"></i><i class="icon-star zero"></i><i class="icon-star zero"></i>
+                        </span>
+                    <span class="pos" ng-if="avgr.avg==3.5;">
+                            <i class="icon-star full"></i><i class="icon-star full"></i><i class="icon-star full"></i><i class="icon-star half"></i><i class="icon-star zero"></i>
+                        </span>
+                    <span class="pos" ng-if="avgr.avg==4">
+                            <i class="icon-star full"></i><i class="icon-star full"></i><i class="icon-star full"></i><i class="icon-star full"></i><i class="icon-star zero"></i>
+                        </span>
+                    <span class="pos" ng-if="avgr.avg==4.5">
+                            <i class="icon-star full"></i><i class="icon-star full"></i><i class="icon-star full"></i><i class="icon-star full"></i><i class="icon-star half"></i>
+                        </span>
+                    <span class="pos" ng-if="avgr.avg==5">
+                            <i class="icon-star full"></i><i class="icon-star full"></i><i class="icon-star full"></i><i class="icon-star full"></i><i class="icon-star full"></i>
+                        </span>
+                    <span class="pos" ng-if="!avgr.avg">
+                            <i class="icon-star zero"></i><i class="icon-star zero"></i><i class="icon-star zero"></i><i class="icon-star zero"></i><i class="icon-star zero"></i>
+                        </span>
+                    <!--                        <i class="icon ion-star rated"></i><i class="icon ion-star rated"></i><i class="icon ion-star rated"></i><i class="icon ion-star rated"></i><i class="icon ion-star not-rated"></i>-->
+                    </span>
+
+                </div>
+            </ion-item>
+        </ion-list>
+
+
+        <!--
+        <ion-list class="menu-list">
+            <ion-item>
+                <a href="#/app/details">
+                    <img class="new-release" src="img/release.png">
+                    <img src="img/killdil.jpg" height="auto" width="100%" />
+                    <img class="watch-movie" src="img/watch.png">
+                </a>
+                 <div class="bgwhite detail">
+                   
+                       KILL DIL
+                   
+                    <span class="f12 pull-right"><i class="icon ion-star rated"></i><i class="icon ion-star rated"></i><i class="icon ion-star rated"></i><i class="icon ion-star rated"></i><i class="icon ion-star not-rated"></i>
+                    </span>
+
+                </div>
+            </ion-item>
+        </ion-list>
+
+
+        <ion-list class="menu-list">
+            <ion-item>
+                <a href="#/app/details">
+                    <img class="new-release" src="img/release.png">
+                    <img src="img/killdil.jpg" height="auto" width="100%" />
+                    <img class="watch-movie" src="img/watch.png">
+                </a>
+                 <div class="bgwhite detail">
+                    
+                       KILL DIL
+                
+                    <span class="f12 pull-right"><i class="icon ion-star rated"></i><i class="icon ion-star rated"></i><i class="icon ion-star rated"></i><i class="icon ion-star rated"></i><i class="icon ion-star not-rated"></i>
+                    </span>
+
+                </div>
+            </ion-item>
+        </ion-list>
+-->
+
+        <!--
+        <div class="menu-list">
+
+
+            <ion-tabs class="">
+
+              <ion-tab title="IN THEATERS">
+                 Tab 1 content 
+                 <img src="img/killdil.jpg" height="100%" width="100%"/>
+                  <img src="img/hny.jpg" height="100%" width="100%"/>
+              </ion-tab>
+
+              <ion-tab title="COMING SOON">
+                 Tab 2 content 
+                 <img src="img/killdil.jpg" height="100%" width="100%"/>
+              </ion-tab>
+  
+         </ion-tabs>
+
+        </div>
+-->
+
+    </ion-content>
+</ion-view>

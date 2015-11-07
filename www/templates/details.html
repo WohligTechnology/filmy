@@ -1,0 +1,309 @@
+<ion-view class="bgwhite">
+    <!--
+  <ion-nav-title>
+   <img class="header-img" src="img/head-logo.png">
+    </ion-nav-title>
+-->
+    <div class="bar bar-header dark-green">
+        <h1 class="title margin-auto"><img class="header-img" src="img/head-logo-r.png"></h1>
+    </div>
+    <ion-content class="has-header">
+        <h6 class="hdtitle rale-regular">{{movie.description.moviename}}</h6>
+
+
+        <div>
+            <div class="pos" style="margin-bottom:-6px;">
+                <a href="#">
+                    <img class="watch-movie watch-opacity" src="img/watch.png" ng-if="iswatched==0" ng-click="setwatched();">
+                    <img class="watch-movie watch-opacity1" src="img/watch.png" ng-if="iswatched==1" ng-click="inwatch();">
+                </a>
+                <img ng-src="{{movie.description.image}}" height="auto" width="100%" />
+            </div>
+            <div class="pos">
+                <div class="fix-ht100 greenbg"></div>
+                <ion-list class="detail-btn">
+                    <ion-item class="rate" ng-click="openedit();">
+
+                        <label>
+                            <span class="f16 rale-bold">RATE</span>
+                            <span class="margin-left rating-stars">
+<!--                                <rating class="ptr-disable" ng-model="star.rate" max="5" style="display:inline-block;"></rating>-->
+                                <span class="pos" ng-if="star.rate==0.5">
+                                    <i class="icon-star half"></i><i class="icon-star zero"></i><i class="icon-star zero"></i><i class="icon-star zero"></i><i class="icon-star zero"></i><span class="user-cmt">**!%^&*</span>
+                            </span>
+                            <span class="pos" ng-if="star.rate==1">
+                                    <i class="icon-star full"></i><i class="icon-star zero"></i><i class="icon-star zero"></i><i class="icon-star zero"></i><i class="icon-star zero"></i></i><span class="user-cmt">STARE AT A WALL INSTEAD</span>
+                            </span>
+                            <span class="pos" ng-if="star.rate==1.5">
+                                    <i class="icon-star full"></i><i class="icon-star half"></i><i class="icon-star zero"></i><i class="icon-star zero"></i><i class="icon-star zero"></i><span class="user-cmt">WHY GOD WHY?</span>
+                            </span>
+                            <span class="pos" ng-if="star.rate==2">
+                                   <i class="icon-star full"></i><i class="icon-star full"></i><i class="icon-star zero"></i><i class="icon-star zero"></i><i class="icon-star zero"></i></i><span class="user-cmt">DO IT UNDER PEER-PRESSURE</span>
+                            </span>
+                            <span class="pos" ng-if="star.rate==2.5">
+                                    <i class="icon-star full"></i><i class="icon-star full"></i><i class="icon-star half"></i><i class="icon-star zero"></i><i class="icon-star zero"></i></i><span class="user-cmt">*FACE PALM*</span>
+                            </span>
+                            <span class="pos" ng-if="star.rate==3">
+                                   <i class="icon-star full"></i><i class="icon-star full"></i><i class="icon-star full"></i><i class="icon-star zero"></i><i class="icon-star zero"></i></i><span class="user-cmt">YAY AND NAY</span>
+                            </span>
+                            <span class="pos" ng-if="star.rate==3.5;">
+                                   <i class="icon-star full"></i><i class="icon-star full"></i><i class="icon-star full"></i><i class="icon-star half"></i><i class="icon-star zero"></i></i><span class="user-cmt">ONE TIME WATCH</span>
+                            </span>
+                            <span class="pos" ng-if="star.rate==4">
+                                    <i class="icon-star full"></i><i class="icon-star full"></i><i class="icon-star full"></i><i class="icon-star full"></i><i class="icon-star zero"></i><span class="user-cmt">ME LIKEY!</span>
+                            </span>
+                            <span class="pos" ng-if="star.rate==4.5">
+                                    <i class="icon-star full"></i><i class="icon-star full"></i><i class="icon-star full"></i><i class="icon-star full"></i><i class="icon-star half"></i><span class="user-cmt">LEGENDARY!</span>
+                            </span>
+                            <span class="pos" ng-if="star.rate==5">
+                                   <i class="icon-star full"></i><i class="icon-star full"></i><i class="icon-star full"></i><i class="icon-star full"></i><i class="icon-star full"></i><span class="user-cmt">WATCH IT 5 TIMES MORE</span>
+                            </span>
+                            <span class="pos" ng-if="!star.rate">
+                                   <i class="icon-star zero"></i><i class="icon-star zero"></i><i class="icon-star zero"></i><i class="icon-star zero"></i><i class="icon-star zero"></i>
+                                </span>
+                            </span>
+
+                            <!--                            <span class="margin-left"><i class="icon ion-star rated"></i><i class="icon ion-star not-rated"></i><i class="icon ion-star not-rated"></i><i class="icon ion-star not-rated"></i><i class="icon ion-star not-rated"></i></span>-->
+                            <!--                            <span class="user-cmt">{{star.text}}</span>-->
+                        </label>
+                    </ion-item>
+                    <!--
+                    <ion-item class="text-center">
+                        <button class="button rale-bold" ng-click="openeditfb();share();">
+                            RECOMMEND
+                        </button>
+                    </ion-item>
+-->
+                </ion-list>
+            </div>
+
+            <!--<div class="bdrleft">-->
+
+            <div class="row detail-hd">
+                <div class="col" ng-click="first=1" ng-class="{'active-tab': first==1}"><i class="icon icon-recommend pull-left"></i><span>EXPERTS</span>
+                </div>
+                <!--
+                <div class="col" ng-click="first=2" ng-class="{'active-tab': first==2}">FRIENDS<i class="icon friends"></i>
+                </div>
+-->
+            </div>
+            <div class="bdrleft">
+
+
+                <div class="rale-regular padding5" ng-repeat="experts in movie.expertrating" ng-if="first==1 && experts.rating!=0">{{experts.name}}
+                    <span class="floatright"><!--<rating class="ptr-disable" ng-model="experts.rating" max="5"></rating>-->
+                                <span class="pos" ng-if="experts.rating==0.5">
+                                   <i class="icon-star half"></i><i class="icon-star zero"></i><i class="icon-star zero"></i><i class="icon-star zero"></i><i class="icon-star zero"></i>
+                                </span>
+                    <span class="pos" ng-if="experts.rating==1">
+                                  <i class="icon-star full"></i><i class="icon-star zero"></i><i class="icon-star zero"></i><i class="icon-star zero"></i><i class="icon-star zero"></i>
+                                </span>
+                    <span class="pos" ng-if="experts.rating==1.5">
+                                   <i class="icon-star full"></i><i class="icon-star half"></i><i class="icon-star zero"></i><i class="icon-star zero"></i><i class="icon-star zero"></i>
+                                </span>
+                    <span class="pos" ng-if="experts.rating==2">
+                                    <i class="icon-star full"></i><i class="icon-star full"></i><i class="icon-star zero"></i><i class="icon-star zero"></i><i class="icon-star zero"></i>
+                                </span>
+                    <span class="pos" ng-if="experts.rating==2.5">
+                                   <i class="icon-star full"></i><i class="icon-star full"></i><i class="icon-star half"></i><i class="icon-star zero"></i><i class="icon-star zero"></i>
+                                </span>
+                    <span class="pos" ng-if="experts.rating==3">
+                                   <i class="icon-star full"></i><i class="icon-star full"></i><i class="icon-star full"></i><i class="icon-star zero"></i><i class="icon-star zero"></i>
+                                </span>
+                    <span class="pos" ng-if="experts.rating==3.5;">
+                                   <i class="icon-star full"></i><i class="icon-star full"></i><i class="icon-star full"></i><i class="icon-star half"></i><i class="icon-star zero"></i>
+                                </span>
+                    <span class="pos" ng-if="experts.rating==4">
+                                    <i class="icon-star full"></i><i class="icon-star full"></i><i class="icon-star full"></i><i class="icon-star full"></i><i class="icon-star zero"></i>
+                                </span>
+                    <span class="pos" ng-if="experts.rating==4.5">
+                                    <i class="icon-star full"></i><i class="icon-star full"></i><i class="icon-star full"></i><i class="icon-star full"></i><i class="icon-star half"></i>
+                                </span>
+                    <span class="pos" ng-if="experts.rating==5">
+                                   <i class="icon-star full"></i><i class="icon-star full"></i><i class="icon-star full"></i><i class="icon-star full"></i><i class="icon-star full"></i>
+                                </span>
+                    <span class="pos" ng-if="!experts.rating">
+                                    <i class="icon-star zero"></i><i class="icon-star zero"></i><i class="icon-star zero"></i><i class="icon-star zero"></i><i class="icon-star zero"></i>
+                                </span>
+                    </span>
+                    <!--                    
+<span class="floatright"><i class="icon ion-star rated"></i><i class="icon ion-star rated"></i><i class="icon ion-star rated"></i><i class="icon ion-star rated"></i><i class="icon ion-star not-rated"></i></span>-->
+                </div>
+
+                <div class="bghover rale-semibold padding5" ng-if="first==1">Average Rating
+                    <span class="floatright"><!--<rating class="ptr-disable" ng-model="experts.rating" max="5"></rating>-->
+                                <span class="pos" ng-if="star1.rate==0.5">
+                                     <i class="icon-star half"></i><i class="icon-star zero"></i><i class="icon-star zero"></i><i class="icon-star zero"></i><i class="icon-star zero"></i>
+                                </span>
+                    <span class="pos" ng-if="star1.rate==1">
+                                     <i class="icon-star full"></i><i class="icon-star zero"></i><i class="icon-star zero"></i><i class="icon-star zero"></i><i class="icon-star zero"></i>
+                                </span>
+                    <span class="pos" ng-if="star1.rate==1.5">
+                                    <i class="icon full-star s1"></i></i><i class="icon half-star s2"></i><i class="icon empty-star s3"></i><i class="icon empty-star s4"></i><i class="icon empty-star s5"></i>
+                                </span>
+                    <span class="pos" ng-if="star1.rate==2">
+                                    <i class="icon-star full"></i><i class="icon-star full"></i><i class="icon-star zero"></i><i class="icon-star zero"></i><i class="icon-star zero"></i>
+                                </span>
+                    <span class="pos" ng-if="star1.rate==2.5">
+                                    <i class="icon-star full"></i><i class="icon-star full"></i><i class="icon-star half"></i><i class="icon-star zero"></i><i class="icon-star zero"></i>
+                                </span>
+                    <span class="pos" ng-if="star1.rate==3">
+                                    <i class="icon-star full"></i><i class="icon-star full"></i><i class="icon-star full"></i><i class="icon-star zero"></i><i class="icon-star zero"></i>
+                                </span>
+                    <span class="pos" ng-if="star1.rate==3.5;">
+                                   <i class="icon-star full"></i><i class="icon-star full"></i><i class="icon-star full"></i><i class="icon-star half"></i><i class="icon-star zero"></i>
+                                </span>
+                    <span class="pos" ng-if="star1.rate==4">
+                                    <i class="icon-star full"></i><i class="icon-star full"></i><i class="icon-star full"></i><i class="icon-star full"></i><i class="icon-star zero"></i>
+                                </span>
+                    <span class="pos" ng-if="star1.rate==4.5">
+                                    <i class="icon-star full"></i><i class="icon-star full"></i><i class="icon-star full"></i><i class="icon-star full"></i><i class="icon-star half"></i>
+                                </span>
+                    <span class="pos" ng-if="star1.rate==5">
+                                     <i class="icon-star full"></i><i class="icon-star full"></i><i class="icon-star full"></i><i class="icon-star full"></i><i class="icon-star full"></i>
+                                </span>
+                    <span class="pos" ng-if="!star1.rate">
+                                    <i class="icon-star zero"></i><i class="icon-star zero"></i><i class="icon-star zero"></i><i class="icon-star zero"></i><i class="icon-star zero"></i>
+                                </span>
+                    </span>
+                    <!--                    
+<span class="floatright"><i class="icon ion-star rated"></i><i class="icon ion-star rated"></i><i class="icon ion-star rated"></i><i class="icon ion-star rated"></i><i class="icon ion-star not-rated"></i></span>-->
+                </div>
+                <!--
+                <div class="rale-regular padding5">Rajiv Masand<span class="floatright"><i class="icon ion-star rated"></i><i class="icon ion-star rated"></i><i class="icon ion-star rated"></i><i class="icon ion-star rated"></i><i class="icon ion-star not-rated"></i></span>
+                </div>
+                <div class="rale-regular padding5">Anupama Chopra<span class="floatright"><i class="icon ion-star rated"></i><i class="icon ion-star rated"></i><i class="icon ion-star rated"></i><i class="icon ion-star not-rated"></i><i class="icon ion-star not-rated"></i></span>
+                </div>
+                <div class="rale-regular padding5">Times Of India<span class="floatright"><i class="icon ion-star rated"></i><i class="icon ion-star rated"></i><i class="icon ion-star not-rated"></i><i class="icon ion-star not-rated"></i><i class="icon ion-star not-rated"></i></span>
+                </div>
+                <div class="bghover rale-semibold">AVERAGE RATING<span class="floatright"><i class="icon ion-star rated"></i><i class="icon ion-star rated"></i><i class="icon ion-star not-rated"></i><i class="icon ion-star not-rated"></i><i class="icon ion-star not-rated"></i></span>
+                </div>
+-->
+
+            </div>
+
+
+
+            <div class="row detail-hd">
+                <div class="col" ng-click="second=1" ng-class="{'active-tab': second==1}"><i class="icon twit-feeds"></i>TWITTER FEEDS</div>
+                <div class="col" ng-click="second=2" ng-class="{'active-tab': second==2}">REVIEWS<i class="icon icon-reviews pull-right"></i>
+                </div>
+            </div>
+            <div class="avtars bdrleft">
+                <ion-scroll style="height:300px;width:93%;">
+                    <!--                        <label class="latosemibold">TWITTER FEEDS</label>-->
+                    <!--                <ion-scroll direction="y" style="height:300px">-->
+                    <div class="separator list" ng-if="second==2">
+                        <ion-item class="item-avatar" ng-repeat="reviews in movie.reviews|limitTo:2">
+                            <img class="img-circle" src="img/default.jpg" />
+                            <span class="rale-regular cmt-title">{{reviews.name}}</span>
+                            <p class="rale-regular">{{reviews.review}}
+                                <span class="floatright grey" style="margin-right:0">6d</span>
+                            </p>
+                        </ion-item>
+                    </div>
+
+                    <div class="separator list" ng-if="second==2">
+                        <ion-item class="item-avatar" ng-repeat="com in comments.usercomment">
+                            <img class="img-circle" nig-if="userdetails.userdetails.image" ng-src="{{userdetails.userdetails.image}}" />
+                            <!--                            <img class="img-circle" nig-if="!(userdetails.userdetails.image)" src="img/default.jpg" />-->
+                            <span class="rale-regular cmt-title">{{name}}</span>
+                            <p class="rale-regular">{{com.comment}}<span class="floatright grey" style="margin-right:0">{{ com.timestamp | date : 'dd MMM yyyy' }}</span>
+                            </p>
+                        </ion-item>
+                    </div>
+
+                    <div class="rale-semibold" style="text-align:center;padding:10px;" ng-if="comments.usercomment.length==0 && movie.reviews.length==0 && second==2">No Reviews Yet</div>
+                    
+                    <div class="rale-semibold" style="text-align:center;padding:10px;" ng-if="tweets.statuses.length==0 && second==1">No Twitter Feeds Yet</div>
+                    <div class="separator list" ng-if="second==1">
+                        <ion-item class="item-avatar" ng-repeat="tweets in tweets.statuses">
+                            <img class="img-circle" ng-src="{{tweets.user.profile_image_url}}" />
+                            <span class="rale-regular cmt-title">{{tweets.user.name}}</span>
+                            <p class="rale-regular">{{tweets.text}}
+                                <!--                            <span class="floatright grey">6d</span>-->
+                            </p>
+                        </ion-item>
+                    </div>
+                    <!--                </ion-scroll>-->
+                    <!--
+                <div class="separator list" ng-if="second==2">
+                    <a class="item item-avatar" href="#">
+                        <img class="img-circle" src="img/pp.jpg" />
+                        <span class="rale-regular cmt-title">Piotr Nalepa</span>
+                        <p class="rale-regular">Back off, man. I'm a scientist.Back off, man.<span class="floatright grey">15d</span>
+                        </p>
+                    </a>
+                </div>
+                <div class="separator list" style="border-bottom:none;" ng-if="second==2">
+                    <a class="item item-avatar" href="#">
+                        <img class="img-circle" src="img/pp.jpg" />
+                        <span class="rale-regular cmt-title">Venkman</span>
+                        <p class="rale-regular">Back off, man. I'm a scientist.<span class="floatright grey">26d</span>
+                        </p>
+                    </a>
+                </div>
+-->
+                    <!--                <div class="rale-semibold">12 more comments</div>-->
+                </ion-scroll>
+            </div>
+            <div class="brdleft"></div>
+
+
+
+            <div class="cmtbox list" ng-if="second==2">
+
+                <div class="item item-input-inset">
+                    <label class="item-input-wrapper" style="background: white !important;">
+                        <input type="text" placeholder="If it's worth your time, write a review!" ng-model="movie.comment">
+                    </label>
+                    <button class="button button-small" ng-click="insertcomment();">
+                        <i class="icon icon-reviews"></i>
+                    </button>
+                </div>
+
+
+            </div>
+            <div class="bdrleft"></div>
+
+            <div class="detail-hd">
+                <div class="dark-green p10 pos"><i class="icon description-icon"></i>DESCRIPTION
+                    <div class="desc-arrow"></div>
+                </div>
+            </div>
+            <div class="f12 bdrleft description">
+                <!--                        <label class="latosemibold">DETAILS</label>-->
+                <div>
+                    <label class="f12 rale-regular">GENRE:</label><span>{{movie.description.genrename}}</span>
+                </div>
+                <div>
+                    <label class="f12 rale-regular">RELEASE DATE:</label><span>{{releasedate}}</span>
+                </div>
+                <div>
+                    <label class="f12 rale-regular">DURATION:</label><span>{{movie.description.duration}}</span>
+                </div>
+                <div>
+                    <label class="f12 rale-regular">DIRECTOR:</label><span>{{movie.description.director}}</span>
+                </div>
+                <div class="width100 clear">
+                    <div class="width25">
+                        <label class="f12 rale-regular">WRITERS:</label>
+                    </div>
+                    <div class="width75"><span>{{movie.description.writer}}</span>
+                    </div>
+                </div>
+                <div class="width100 clear">
+                    <div class="width30">
+                        <label class="f12 rale-regular">CAST & CREW:</label>
+                    </div>
+                    <div class="width70"><span>{{movie.description.casteandcrew}}</span>
+                    </div>
+
+                </div>
+
+            </div>
+            <div class="bdrleft fix-ht100"></div>
+            <!--          </div>-->
+        </div>
+    </ion-content>
+</ion-view>
