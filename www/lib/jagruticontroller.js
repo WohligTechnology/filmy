@@ -67,7 +67,8 @@ angular.module('jagruticontroller', ['myservices'])
             console.log("Facebook Login");
             $interval.cancel(stopinterval);
             ref.close();
-            $http.post(adminurl + "authenticate").success(authenticatesuccess);
+            authenticatesuccess(data,status);
+
         } else {
             console.log("Do nothing");
 //            ref.close();
@@ -75,7 +76,11 @@ angular.module('jagruticontroller', ['myservices'])
     };
 
     var callAtIntervaltwitter = function() {
-        $http.post(adminurl + "authenticate").success(checktwitter);
+     $http({
+    url:  "http://www.wohlig.co.in/moviews.json",
+    method: "POST",
+    withCredentials: true
+  }).success(checktwitter);
     };
 
 
@@ -83,7 +88,7 @@ angular.module('jagruticontroller', ['myservices'])
         //        console.log(window.location);
         //        var abc = window.location.origin + window.location.pathname;
         var ref = cordova.InAppBrowser.open(socialloginurl + 'Twitter?returnurl=http://www.ting.in', '_blank', 'location=no');
-        stopinterval = $interval(callAtIntervaltwitter, 2000);
+        stopinterval = $interval(callAtIntervaltwitter, 1000);
         ref.addEventListener('exit', function(event) {
             $http.post(adminurl + "authenticate").success(authenticatesuccess);
             $interval.cancel(stopinterval);
@@ -93,9 +98,13 @@ angular.module('jagruticontroller', ['myservices'])
         //        console.log(window.location);
         //        var abc = window.location.origin + window.location.pathname;
         var ref = cordova.InAppBrowser.open(socialloginurl + 'Facebook?returnurl=http://www.ting.in', '_blank', 'location=no');
-        stopinterval = $interval(callAtIntervaltwitter, 2000);
+        stopinterval = $interval(callAtIntervaltwitter, 1000);
         ref.addEventListener('exit', function(event) {
-            $http.post(adminurl + "authenticate").success(authenticatesuccess);
+          $http({
+         url: "http://www.wohlig.co.in/moviews.json",
+         method: "POST",
+         withCredentials: true
+       }).success(checktwitter);
             $interval.cancel(stopinterval);
         });
     };
